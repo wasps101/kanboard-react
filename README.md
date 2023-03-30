@@ -1,6 +1,6 @@
 # Канбан-доска на React JS
 
-![Демонстрационное изображение](https://github.com/wasps101/kanboard-react/src/demo-img/kanboard-overview.jpg)
+![Демонстрационное изображение](https://github.com/wasps101/kanboard-react/blob/main/src/demo_img/kanboard-overview.jpg)
 Фронтенд-приложение канбан-доски, созданное с использованием React JS. Позволяет создавать различные доски, столбцы и задачи, а также редактировать и перемещать их.
 
 ## Установка
