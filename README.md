@@ -9,7 +9,7 @@
 
 ```
 git clone https://github.com/wasps101/kanboard-react.git
-cd kanban-board 
+cd kanboard-react
 npm install
 ```
 
