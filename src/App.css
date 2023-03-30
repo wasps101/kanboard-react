@@ -1,0 +1,589 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.main_container {
+  min-height: 100vh;
+  background: linear-gradient(0deg, var(--col-bkg-prm), var(--col-bkg-scn))
+}
+
+.light_mode {
+  --col-prm: #fbfbfb;
+  --col-scn: #6b7d8d;
+  --col-trd: #fffbe4;
+  --col-frt: #d68058;
+  --col-fft: #fff;
+  --col-six: #000;
+  --col-task: #f9f9f9;
+  --col-task-edit: #e1e8f3;
+  --col-task-shadow: #c2c8cd;
+  --col-shadow: #c9cdd1;
+  --col-bkg-prm: #aeb8c1;
+  --col-bkg-scn: transparent;
+  --col-scrollbar: #9b8ea9;
+  --col-scrollbar-opaque: #9b8ea999;
+  --col-text-prm: #242424;
+  --col-text-contrast: #ededed;
+  --col-success: #6cdf45;
+  --col-alert: #ff6262;
+}
+
+.dark_mode {
+  --col-prm: #2e2e2e;
+  --col-scn: #ffc798;
+  --col-trd: #ffffff;
+  --col-frt: #d68058;
+  --col-fft: #000;
+  --col-six: #fff;
+  --col-task: #2a2a2a;
+  --col-task-edit: #4c5460;
+  --col-task-shadow: #161616;
+  --col-shadow: #242424;
+  --col-bkg-prm: #222b32;
+  --col-bkg-scn: #363232;
+  --col-scrollbar: #9b8ea9;
+  --col-scrollbar-opaque: #9b8ea999;
+  --col-text-prm: #dfdfdf;
+  --col-text-contrast: #000000;
+  --col-success: #6cdf45;
+  --col-alert: #ff6262;
+}
+
+* {
+  color: var(--col-text-prm);
+  font-family: 'Montserrat', sans-serif;
+}
+
+input[type="submit"] {
+  color: var(--col-text-prm);
+  cursor: pointer;
+}
+
+.dark_mode input, .dark_mode textarea {
+  color: var(--col-text-contrast);
+}
+
+/* Скроллбары */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--col-scrollbar-opaque);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--col-scrollbar);
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Переключатель */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  transform: scale(0.75);
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #2196F3;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #e5ba00;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2a2a2a;
+}
+
+input:checked + .slider:before {
+  background-color: #ababab;
+}
+
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+
+  
+/* Верхнее меню с логотипом */
+
+.upper_bar {
+  height: 8vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.kanboard_title {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title_characters {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.kanboard_title > * {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.title_characters > span {
+  font-size: 2em;
+  display: flex;
+}
+
+li.kanboard_logo {
+  margin-right: 2ch;
+  display: flex;
+  align-items: center;
+}
+
+.checkboard_icon > img {
+  width: 1em;
+}
+
+.dark_mode .checkboard_icon > img {
+  width: 1em;
+  filter: invert(98%) sepia(0%) saturate(1089%) hue-rotate(239deg) brightness(96%) contrast(84%);
+}
+
+/* Верхнее меню с досками */
+
+ul.board_list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0 1ch;
+  background: var(--col-prm);
+  box-shadow: 0 5px 5px var(--col-shadow);
+  overflow: auto;
+}
+
+ul.board_list.small {
+  display: none;
+}
+
+li.board_list_item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 1ch;
+  height: 5ch;
+  min-width: fit-content;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+li.board_list_item:hover > .edit_icons {
+  display: flex;
+}
+
+span.board_list_item_title {
+  z-index: 10;
+}
+
+span.board_list_item_title.active {
+  text-decoration: underline;
+  transform: scale(1.05);
+}
+
+form.add_board_form {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Рабочая зона */
+
+.workspace {
+  padding: 0 2ch;
+  display: flex;
+  height: 92vh;
+  flex-direction: column;
+}
+
+.board_wrap {
+  margin-top: 1ch;
+  position: relative;
+  flex-grow: 1;
+}
+
+.board {
+  display: flex;
+  bottom: 0;
+  left: 0;
+  margin-bottom: 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+form.add_board_form > input {
+  text-align: center;
+  margin: 0.33ch;
+  padding: 1ch;
+}
+
+/* Колонка */
+
+.column_wrap {
+  min-width: 20%;
+  max-width: 25%;
+  border-right: 1px solid var(--col-bkg-prm);
+  overflow: auto;
+}
+
+.column {
+  background: var(--col-prm);
+  margin: 0 1ch;
+  box-shadow: 0 5px 5px var(--col-shadow);
+}
+
+.column.add {
+  background: #fbfbfb30;
+}
+
+.column_wrap:first-of-type .column {
+  margin-left: 0;
+}
+
+span.column_title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5ch;
+  text-align: center;
+  background: var(--col-scn);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+span.column_title_text {
+  color: var(--col-text-contrast);
+}
+
+span.column_title .edit_icons * {
+  color: var(--col-text-contrast);
+}
+
+span.column_title:hover .edit_icons {
+  display: flex;
+}
+
+
+ul.task_list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Task */
+
+li.task {
+  padding: 2ch;
+  margin: 1ch;
+  background: var(--col-task);
+  box-shadow: 0 3px 5px var(--col-task-shadow);
+}
+
+span.task_title {
+  display: flex;
+  cursor: pointer;
+}
+
+.task_main {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit_icons {
+  display: none;
+  align-items: center;
+  height: 0;
+  margin-left: 1ch;
+  min-width: max-content;
+}
+
+span.material-symbols-outlined {
+  display: inline;
+  padding-left: 0.25ch;
+  font-size: 18px;
+  transform: scale(1.2);
+  color: var(--col-scn);
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+
+div.task_main:hover > div.edit_icons {
+  display: flex;
+}
+
+span.material-symbols-outlined:hover {
+  opacity: 1 !important;
+}
+
+span.material-symbols-outlined.back:hover, span.material-symbols-outlined.remove:hover {
+  color: var(--col-alert);
+}
+
+span.material-symbols-outlined.forward:hover {
+  color: var(--col-success);
+}
+
+li.task.opened {
+  border-radius: 1ch;
+}
+
+.task_deadline {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  align-items: center;
+}
+
+.task_deadline, div.task_comment {
+  margin-top: 1ch;
+}
+
+span.task_comment_label, .task_deadline > label, .task.opened > div.task_main > .task_title {
+  font-weight: 500;
+}
+
+/* Добавление и редактирование задачи */
+
+li.task.add_task_wrap {
+  margin: 0;
+  background: var(--col-prm);
+  box-shadow: none;
+}
+
+.add_task, .change_task {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+div.add_task > span.material-symbols-outlined {
+  display: inline;
+}
+
+div.add_task > span.add_task_text {
+  display: none;
+  margin-left: 1ch;
+}
+
+div.add_task:hover > span.add_task_text,  div.add_task.active > span.add_task_text {
+  display: inline;
+}
+
+div.add_task.active > span.material-symbols-outlined, div.add_task:hover > span.material-symbols-outlined {
+  opacity: 1;
+}
+
+form.new_task, form.change_task {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1ch;
+}
+
+form.new_task > input, form.new_task > textarea, form.change_task > input, form.change_task > textarea {
+  text-align: center;
+  margin: 0.33ch;
+  padding: 1ch;
+}
+
+/* Добавление колонки */
+
+form.column_add_form {
+  display: flex;
+  flex-direction: column;
+  padding: 1ch;
+}
+
+form.column_add_form > input {
+  text-align: center;
+  margin: 0.33ch;
+  padding: 1ch;
+}
+
+/* Формы и инпуты при изменении досок, колонок и задач */
+
+form.change_form {
+  display: flex;
+}
+
+form.change_form > * {
+  padding: 0.5ch;
+}
+
+form.change_form > button[type="submit"] > span {
+  display: block;
+  color: var(--col-success);
+  padding-left: 0;
+}
+
+form.change_form.change_task {
+  flex-direction: column;
+}
+
+li.task.edit {
+  background: var(--col-task-edit);
+}
+
+
+
+/* Верстка под разные размеры экрана */
+
+@media screen and (max-width: 1200px) {
+  .column_wrap {
+      min-width: 33%;
+      max-width: 50%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .column_wrap {
+      min-width: 50%;
+      max-width: 50%;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .column_wrap {
+      min-width: 100%;
+      max-width: 100%;
+  }
+}
+
+@media (orientation: portrait) {
+
+ul.board_list {
+  display: none;
+}
+
+ul.board_list.small {
+  display: flex;
+  flex-direction: column;
+}
+
+li.board_list_item {
+  height: auto;
+}
+
+.board_list {
+  overflow: auto;
+}
+
+.board {
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.column_wrap {
+  min-width: 100%;
+  max-width: fit-content;
+  overflow: initial;
+}
+
+.column_wrap .column {
+ margin-left: 0;
+}
+
+span.material-symbols-outlined {
+  display: inline;
+}
+
+}
+
+/* Импорт шрифта и иконок гугла */
+
+/* vietnamese */
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/josefin-sans-vietnamese.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/josefin-sans-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Josefin Sans';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(fonts/josefin-sans-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 100 700;
+  src: url(fonts/google-icons.woff2) format('woff2');
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+}
